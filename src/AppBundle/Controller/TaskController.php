@@ -5,7 +5,9 @@ namespace AppBundle\Controller;
 use AppBundle\Entity\Task;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;use Symfony\Component\HttpFoundation\Request;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Component\Finder\Exception\AccessDeniedException;
+use Symfony\Component\HttpFoundation\Request;
 
 /**
  * Task controller.
@@ -24,7 +26,7 @@ class TaskController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $tasks = $em->getRepository('AppBundle:Task')->findAll();
+        $tasks = $em->getRepository('AppBundle:Task')->findBy(['user' => $this->getUser()]);
 
         return $this->render('task/index.html.twig', array(
             'tasks' => $tasks,
@@ -40,6 +42,8 @@ class TaskController extends Controller
     public function newAction(Request $request)
     {
         $task = new Task();
+        $task->setUser($this->getUser());
+
         $form = $this->createForm('AppBundle\Form\TaskType', $task, [
             'action' => $this->generateUrl('task_new'),
         ]);
@@ -83,6 +87,10 @@ class TaskController extends Controller
      */
     public function editAction(Request $request, Task $task)
     {
+        if($task->getUser() !== $this->getUser()) {
+            throw new AccessDeniedException();
+        }
+
         $deleteForm = $this->createDeleteForm($task);
         $editForm = $this->createForm('AppBundle\Form\TaskType', $task);
         $editForm->handleRequest($request);
