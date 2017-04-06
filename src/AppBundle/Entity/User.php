@@ -28,7 +28,7 @@ class User extends BaseUser
     public function __construct()
     {
         parent::__construct();
-        $this->tasks = new ArrayCollection();
+        $this->tasks = new \Doctrine\Common\Collections\ArrayCollection();
     }
     
     function getTasks() {
