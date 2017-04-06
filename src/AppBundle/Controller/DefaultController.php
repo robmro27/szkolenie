@@ -16,6 +16,8 @@ class DefaultController extends Controller
      */
     public function indexAction(Request $request)
     {
+        $em = $this->getDoctrine()->getManager();
+        
         // just setup a fresh $task object (remove the dummy data)
     $task = new \AppBundle\Entity\Task();
 
@@ -30,15 +32,22 @@ class DefaultController extends Controller
         // $form->getData() holds the submitted values
         // but, the original `$task` variable has also been updated
         $task = $form->getData();
-
+        
+        
+        $em->persist($task);
+        $em->flush();
+        
+        return $this->redirectToRoute('homepage');
         
     }
+        $tasks = $em->getRepository('AppBundle:Task')->findAll();
 
 
         $user = $this->getUser();
         
         // replace this example code with whatever you need
         return $this->render('default/index.html.twig', [
+            'tasks' => $tasks,
             'form' => $form->createView(),
             'user' => $user,
             'base_dir' => realpath($this->getParameter('kernel.root_dir').'/..').DIRECTORY_SEPARATOR,
