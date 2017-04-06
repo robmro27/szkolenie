@@ -55,9 +55,11 @@ class TaskController extends Controller
 
         if ($form->isSubmitted() && $form->isValid()) {
             
-            $task->setName(str_replace('!', '', $task->getName()));
-            $task->setPriority(substr_count ( $task->getName() , '!'));
+            $string = substr($task->getName(),0,3);
+            $qty = substr_count ( $string , '!');
             
+            $task->setPriority($qty);
+            $task->setName(substr($task->getName(),$qty, strlen($task->getName())));
             
             $em = $this->getDoctrine()->getManager();
             $em->persist($task);
