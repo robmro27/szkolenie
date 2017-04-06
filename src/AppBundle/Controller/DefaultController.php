@@ -33,7 +33,7 @@ class DefaultController extends Controller
 
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
+        if ($form->isSubmitted() && $form->isValid()) {  
             $task = $form->getData();
             $task->setUser($this->getUser());
             $em->persist($task);

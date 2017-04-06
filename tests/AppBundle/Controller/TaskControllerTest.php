@@ -14,9 +14,14 @@ class TaskControllerTest extends WebTestCase {
                 LoadUserData::class])->getReferenceRepository();
         
         $client = $this->makeClient(['username' => 'admin', 'password' => 'admin']);
-        $crawler = $client->request('GET', '/');
+        $user = $fixtures->getReferences('user');
+        
+        $client->request('POST', '/', array('name' => 'Task 999', 'user' => $user));
         
         $user = $fixtures->getReferences('user');
+        
+        
+        
     }
     
 }

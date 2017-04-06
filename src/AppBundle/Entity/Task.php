@@ -32,6 +32,11 @@ class Task
     private $name;
 
     /**
+     * @ORM\Column(name="priority", type="integer")
+     */
+    private $priority;
+    
+    /**
      * Many Features have One Product.
      * @ORM\ManyToOne(targetEntity="User", inversedBy="tasks")
      * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
@@ -78,6 +83,15 @@ class Task
 
     function setUser($user) {
         $this->user = $user;
+    }
+
+
+    function getPriority() {
+        return $this->priority;
+    }
+
+    function setPriority($priority) {
+        $this->priority = $priority;
     }
 
 

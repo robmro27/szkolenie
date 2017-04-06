@@ -28,7 +28,9 @@ class TaskController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $tasks = $em->getRepository('AppBundle:Task')->findBy(['user' => $this->getUser()]);
+        $tasks = $em->getRepository('AppBundle:Task')->findBy([
+            'user' => $this->getUser()],
+            ['priority' => 'DESC']);
 
         return $this->render('task/index.html.twig', array(
             'tasks' => $tasks,
@@ -52,6 +54,11 @@ class TaskController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            
+            $task->setName(str_replace('!', '', $task->getName()));
+            $task->setPriority(substr_count ( $task->getName() , '!'));
+            
+            
             $em = $this->getDoctrine()->getManager();
             $em->persist($task);
             $em->flush();
