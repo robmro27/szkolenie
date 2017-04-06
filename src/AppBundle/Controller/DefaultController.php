@@ -28,14 +28,14 @@ class DefaultController extends Controller
 
         if ($form->isSubmitted() && $form->isValid()) {
             $task = $form->getData();
-            $task->setUser($this->user());
+            $task->setUser($this->getUser());
             $em->persist($task);
             $em->flush();
 
             return $this->redirectToRoute('homepage');
         }
         
-        $tasks = $em->getRepository('AppBundle:Task')->findAll();
+        $tasks = $em->getRepository('AppBundle:Task')->findByUser($this->getUser());
         $user = $this->getUser();
         
         return $this->render('default/index.html.twig', [
