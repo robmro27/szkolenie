@@ -40,7 +40,9 @@ class TaskController extends Controller
     public function newAction(Request $request)
     {
         $task = new Task();
-        $form = $this->createForm('AppBundle\Form\TaskType', $task);
+        $form = $this->createForm('AppBundle\Form\TaskType', $task, [
+            'action' => $this->generateUrl('task_new'),
+        ]);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -48,7 +50,7 @@ class TaskController extends Controller
             $em->persist($task);
             $em->flush();
 
-            return $this->redirectToRoute('task_show', array('id' => $task->getId()));
+            return $this->redirectToRoute('task_index', array('id' => $task->getId()));
         }
 
         return $this->render('task/new.html.twig', array(

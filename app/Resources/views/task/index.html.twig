@@ -3,13 +3,13 @@
 {% block body %}
     <h1>Tasks list</h1>
 
-    <table>
+    <table class="">
         <thead>
-            <tr>
-                <th>Id</th>
-                <th>Name</th>
-                <th>Actions</th>
-            </tr>
+        <tr>
+            <th>Id</th>
+            <th>Name</th>
+            <th>Actions</th>
+        </tr>
         </thead>
         <tbody>
         {% for task in tasks %}
@@ -31,9 +31,5 @@
         </tbody>
     </table>
 
-    <ul>
-        <li>
-            <a href="{{ path('task_new') }}">Create a new task</a>
-        </li>
-    </ul>
+    {{ render(controller('AppBundle:Task:new')) }}
 {% endblock %}
