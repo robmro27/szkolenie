@@ -2,6 +2,11 @@
 
 {% block body %}
     Logged as {{ user.username }}
+    
+    {{ form_start(form) }}
+    {{ form_widget(form) }}
+    {{ form_end(form) }}
+    
 {% endblock %}
 
 {% block stylesheets %}
