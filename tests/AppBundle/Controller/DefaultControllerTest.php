@@ -10,27 +10,26 @@ class DefaultControllerTest extends WebTestCase
 {
     public function testIndexNotLogged()
     {
-        $fixtures= $this->loadFixtures([
-                LoadUserData::class])->getReferenceRepository();
-        
+        $fixtures = $this->loadFixtures([
+            LoadUserData::class])->getReferenceRepository();
+
         $client = $this->makeClient();
         $crawler = $client->request('GET', '/');
-        
+
         $this->assertStatusCode(302, $client);
     }
-    
+
     public function testIndex()
     {
-        $fixtures= $this->loadFixtures([
-                LoadUserData::class])->getReferenceRepository();
-        
+        $fixtures = $this->loadFixtures([
+            LoadUserData::class])->getReferenceRepository();
+
         $client = $this->makeClient(['username' => 'admin', 'password' => 'admin']);
         $crawler = $client->request('GET', '/');
-        
-        $user = $fixtures->getReferences('user');
+
         $this->assertStatusCode(200, $client);
-        
+
     }
-    
-    
+
+
 }

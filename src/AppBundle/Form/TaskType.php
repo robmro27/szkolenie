@@ -33,7 +33,7 @@ class TaskType extends AbstractType
      */
     public function getBlockPrefix()
     {
-        return 'appbundle_task';
+        return 'task';
     }
 
 
