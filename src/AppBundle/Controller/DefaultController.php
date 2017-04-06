@@ -28,7 +28,7 @@ class DefaultController extends Controller
 
         if ($form->isSubmitted() && $form->isValid()) {
             $task = $form->getData();
-
+            $task->setUser($this->user());
             $em->persist($task);
             $em->flush();
 
@@ -38,7 +38,6 @@ class DefaultController extends Controller
         $tasks = $em->getRepository('AppBundle:Task')->findAll();
         $user = $this->getUser();
         
-        // replace this example code with whatever you need
         return $this->render('default/index.html.twig', [
             'tasks' => $tasks,
             'form' => $form->createView(),

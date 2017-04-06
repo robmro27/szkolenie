@@ -19,9 +19,25 @@ class User extends BaseUser
      */
     protected $id;
 
+    /**
+     * One Product has Many Features.
+     * @ORM\OneToMany(targetEntity="Task", mappedBy="user")
+     */
+    private $tasks;
+    
     public function __construct()
     {
         parent::__construct();
-        // your own logic
+        $this->tasks = new ArrayCollection();
     }
+    
+    function getTasks() {
+        return $this->tasks;
+    }
+
+    function setTasks($tasks) {
+        $this->tasks = $tasks;
+    }
+
+
 }
