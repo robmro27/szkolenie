@@ -5,33 +5,36 @@
     {{ include('::navbar.html.twig') }}
     <h1>Tasks list</h1>
 
-    <table class="">
-        <thead>
-        <tr>
-            <th>Id</th>
-            <th>Name</th>
-            <th>Actions</th>
-        </tr>
-        </thead>
-        <tbody>
-        {% for task in tasks %}
-            <tr>
-                <td><a href="{{ path('task_show', { 'id': task.id }) }}">{{ task.id }}</a></td>
-                <td>{{ task.name }}</td>
-                <td>
-                    <ul>
-                        <li>
-                            <a href="{{ path('task_show', { 'id': task.id }) }}">show</a>
-                        </li>
-                        <li>
-                            <a href="{{ path('task_edit', { 'id': task.id }) }}">edit</a>
-                        </li>
-                    </ul>
-                </td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+    <div class="row">
+        <div class="col-md-6">
+            <table class="table table-hover">
+                <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Name</th>
+                    <th>Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for task in tasks %}
+                    <tr>
+                        <td><a href="{{ path('task_show', { 'id': task.id }) }}">{{ task.id }}</a></td>
+                        <td>{{ task.name }}</td>
+                        <td>
+                            <a class="btn btn-primary" href="{{ path('task_show', { 'id': task.id }) }}">show</a>
+                            <a class="btn btn-warning" href="{{ path('task_edit', { 'id': task.id }) }}">edit</a>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
 
-    {{ render(controller('AppBundle:Task:new')) }}
+        <div class="col-md-6">
+            {{ render(controller('AppBundle:Task:new')) }}
+        </div>
+    </div>
+
+
+
 {% endblock %}
