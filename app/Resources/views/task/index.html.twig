@@ -21,14 +21,8 @@
                         <td><a href="{{ path('task_show', { 'id': task.id }) }}">{{ task.id }}</a></td>
                         <td>{{ task.name }}</td>
                         <td>
-                            <ul>
-                                <li>
-                                    <a href="{{ path('task_show', { 'id': task.id }) }}">show</a>
-                                </li>
-                                <li>
-                                    <a href="{{ path('task_edit', { 'id': task.id }) }}">edit</a>
-                                </li>
-                            </ul>
+                            <a class="btn btn-primary" href="{{ path('task_show', { 'id': task.id }) }}">show</a>
+                            <a class="btn btn-warning" href="{{ path('task_edit', { 'id': task.id }) }}">edit</a>
                         </td>
                     </tr>
                 {% endfor %}
