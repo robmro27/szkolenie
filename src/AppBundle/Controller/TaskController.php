@@ -3,6 +3,7 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\Task;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -13,6 +14,7 @@ use Symfony\Component\HttpFoundation\Request;
  * Task controller.
  *
  * @Route("/task")
+ * @Security("has_role('ROLE_USER')")
  */
 class TaskController extends Controller
 {
