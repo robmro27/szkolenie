@@ -3,9 +3,17 @@
 {% block body %}
     Logged as {{ user.username }}
     
+    <h1>Members</h1>
+<ul>
+    {% for task in tasks %}
+        <li>{{ task.name }}</li>
+    {% endfor %}
+</ul>
+    
     {{ form_start(form) }}
     {{ form_widget(form) }}
     {{ form_end(form) }}
+    
     
 {% endblock %}
 
