@@ -17,32 +17,25 @@ class DefaultController extends Controller
     public function indexAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
-        
-        // just setup a fresh $task object (remove the dummy data)
-    $task = new \AppBundle\Entity\Task();
+        $task = new \AppBundle\Entity\Task();
 
-    $form = $this->createFormBuilder($task)
-        ->add('name', TextType::class)
-        ->add('save', SubmitType::class, array('label' => 'Create Task'))
-        ->getForm();
+        $form = $this->createFormBuilder($task)
+            ->add('name', TextType::class)
+            ->add('save', SubmitType::class, array('label' => 'Create Task'))
+            ->getForm();
 
-    $form->handleRequest($request);
+        $form->handleRequest($request);
 
-    if ($form->isSubmitted() && $form->isValid()) {
-        // $form->getData() holds the submitted values
-        // but, the original `$task` variable has also been updated
-        $task = $form->getData();
+        if ($form->isSubmitted() && $form->isValid()) {
+            $task = $form->getData();
+
+            $em->persist($task);
+            $em->flush();
+
+            return $this->redirectToRoute('homepage');
+        }
         
-        
-        $em->persist($task);
-        $em->flush();
-        
-        return $this->redirectToRoute('homepage');
-        
-    }
         $tasks = $em->getRepository('AppBundle:Task')->findAll();
-
-
         $user = $this->getUser();
         
         // replace this example code with whatever you need
