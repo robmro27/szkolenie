@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\AppBundle\Controller;
+namespace tests\AppBundle\Controller;
 
 use AppBundle\DataFixtures\ORM\LoadUserData;
 use AppBundle\Entity\User;
