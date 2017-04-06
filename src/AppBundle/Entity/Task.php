@@ -28,6 +28,12 @@ class Task
      */
     private $name;
 
+    /**
+     * Many Features have One Product.
+     * @ORM\ManyToOne(targetEntity="User", inversedBy="tasks")
+     * @ORM\JoinColumn(name="task_id", referencedColumnName="id")
+     */
+    private $user;
 
     /**
      * Get id
@@ -62,5 +68,15 @@ class Task
     {
         return $this->name;
     }
+    
+    function getUser() {
+        return $this->user;
+    }
+
+    function setUser($user) {
+        $this->user = $user;
+    }
+
+
 }
 
